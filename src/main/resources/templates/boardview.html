@@ -4,11 +4,56 @@
     <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
 </head>
+<script>
+    function checkSelectAll()  {
+        // 전체 체크박스
+        const checkboxes
+            = document.querySelectorAll('input[name="test"]');
+        // 선택된 체크박스
+        const checked
+            = document.querySelectorAll('input[name="test"]:checked');
+        // select all 체크박스
+        const selectAll
+            = document.querySelector('input[name="selectall"]');
+
+        if(checkboxes.length === checked.length)  {
+            selectAll.checked = true;
+        }else {
+            selectAll.checked = false;
+        }
+
+    }
+
+    function selectAll(selectAll)  {
+        const checkboxes
+            = document.getElementsByName('test');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked
+        })
+    }
+</script>
 <body>
 
 <h1 th:text="${board.title}">제목입니다.</h1>
 <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
-<a th:href="@{/board/delete(id=${board.id})}">글삭제</a>
+<!--<a th:href="@{/board/delete(id=${board.id})}">글삭제</a>-->
 <a th:href="@{/board/modify/{id}(id = ${board.id})}">수정</a>
+
+<input type="checkbox" name="selectall" onclick="selectAll(this)"><b>전체 선택</b>
+<input type="checkbox" name="test" onclick='checkSelectAll()'> 이
+<input type="checkbox" name="test" onclick='checkSelectAll()'> 상
+<input type="checkbox" name="test" onclick='checkSelectAll()'> 현
+<input type="checkbox" name="test" onclick='checkSelectAll()'> 임
+
+<input type="text"> <button>확인</button> <button> + </button> <button> - </button>
+<p>abc</p>
+<input type="text">
+<p></p>
+<input type="text">
+<p></p>
+<input type="text">
+<p></p>
+
 </body>
 </html>
