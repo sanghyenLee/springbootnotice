@@ -32,6 +32,13 @@
             checkbox.checked = selectAll.checked
         })
     }
+
+    var inputText=function(){
+        var a=document.querySelector("#Enter").value;
+        document.querySelector("#print").innerText=a;
+        document.querySelector("#Enter").value="";
+        document.querySelector("#Enter").focus();
+    };
 </script>
 <body>
 
@@ -46,7 +53,9 @@
 <input type="checkbox" name="test" onclick='checkSelectAll()'> 현
 <input type="checkbox" name="test" onclick='checkSelectAll()'> 임
 
-<input type="text"> <button>확인</button> <button> + </button> <button> - </button>
+<input type="text" id="Enter" placeholder="글 입력"/>
+<button onclick="inputText();">입력</button>
+<p id="print"></p> <button> + </button> <button> - </button>
 <p>abc</p>
 <input type="text">
 <p></p>
