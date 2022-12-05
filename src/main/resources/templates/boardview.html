@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
 </head>
+<style>
+    *{
+        list-style: none;
+    }
+    .key {
+        fontsize: 2rem;
+        text-align: center;
+        color: white;
+        background-color: #000000;
+        border-radius: 1rem;
+        padding: 2rem;
+    }
+    .pressed {
+        background: #053821;
+        transition: background-color;
+    }
+</style>
 <script>
     function checkSelectAll()  {
         // 전체 체크박스
@@ -39,6 +56,28 @@
         document.querySelector("#Enter").value="";
         document.querySelector("#Enter").focus();
     };
+    window.addEventListener("keydown", e => {
+        const key = document.getElementById(e.key);
+        if (key) key.classList.add('pressed');
+    });
+
+
+    window.addEventListener("keyup", e => {
+        const key = document.getElementById(e.key);
+        if (key) key.classList.remove('pressed');
+    });
+
+    function printName() {
+        const name = document.getElementById('name').value;
+        document.getElementById("result").innerText = name;
+    }
+
+    function Drop() {
+        document.getElementById("result").innerText="";
+    }
+
+
+
 </script>
 <body>
 
@@ -55,14 +94,14 @@
 
 <input type="text" id="Enter" placeholder="글 입력"/>
 <button onclick="inputText();">입력</button>
-<p id="print"></p> <button> + </button> <button> - </button>
-<p>abc</p>
-<input type="text">
-<p></p>
-<input type="text">
-<p></p>
-<input type="text">
-<p></p>
+<p id="print"></p>
+<div class="key" id="1">1</div>
+<div class="key" id="2">2</div>
+<div class="key" id="3">3</div>
 
+<input id="name"/>
+<div id="result"></div>
+<button onclick="printName()"> + </button>
+<button onclick="Drop()"> - </button>
 </body>
 </html>
