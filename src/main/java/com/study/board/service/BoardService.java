@@ -33,6 +33,9 @@ public class BoardService {
 
         file.transferTo(saveFile);
 
+        board.setFilename(fileName);
+        board.setFilepath("/files/" + fileName);
+
         boardRepository.save(board);
     }
 
