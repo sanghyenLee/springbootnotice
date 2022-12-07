@@ -22,4 +22,7 @@ public class Board {
     private String filename;
 
     private String filepath;
+
+    private String delYN;
+
 }

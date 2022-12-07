@@ -12,6 +12,44 @@
   }
 
 </style>
+<script>
+    function checkSelectAll() {
+        const checkboxes
+            = document.querySelectorAll('input[name="check"]');
+
+        const checked
+            = document.querySelectorAll('input[name="check"]:checked');
+
+        const selectAll
+            = document.querySelector('input[name="selectall"]');
+
+        if(checkboxes.length === checked.length) {
+            selectAll.checked = true;
+        } else{
+            selectAll.checked = false;
+        }
+
+        const chk_arr = document.querySelector("input[name='chk[]']")
+
+        const chk_data = []
+        for(let i=0; i<chk_arr.length; i++ ) {
+            if( chk_arr[i].checked == true ) {
+                chk_data.push(chk_arr[i].value);
+            }
+        }
+    }
+
+    function selectAll(selectAll)  {
+        const checkboxes
+            = document.getElementsByName('check');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked
+        })
+    }
+
+
+</script>
 
 <body>
 
@@ -19,12 +57,14 @@
       <table>
       <thead>
         <tr>
+            <th><input type="checkbox" name="selectall" onclick="selectAll(this)"></th>
           <th>글번호</th>
           <th>제목</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="board : ${list}" >
+          <td><input type="checkbox" name="check" onclick="checkSelectAll()" th:value="${board.id}"></td>
           <td th:text="${board.id}">1</td>
           <td>
               <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
@@ -41,6 +81,7 @@
           <input type="text" name="searchKeyword">
           <button type="submit">검색</button>
       </form>
+          <button type="button">삭제</button>
   </div>
 </body>
 </html>

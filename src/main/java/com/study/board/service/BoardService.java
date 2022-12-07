@@ -50,9 +50,10 @@ public class BoardService {
     }
 
     // 특정 게시글 불러오기
-    public Board boardView(Integer id) {
+    public Board boardView(Integer id){
 
         return boardRepository.findById(id).get();
+
     }
 
 }
