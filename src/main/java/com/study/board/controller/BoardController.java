@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class BoardController {
@@ -90,6 +92,19 @@ public class BoardController {
 
         boardService.write(boardTemp, file);
 
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/board/deleteForm")
+    public String deleteForm(Board board, HttpServletRequest request){
+        String[] arrayParam = request.getParameterValues("nolmal");
+
+        System.out.println("arrayParam : " + arrayParam[0]);
+        for(int i=0; i<= arrayParam.length; i++){
+            Board boardTemp = boardService.boardView(Integer.parseInt(arrayParam[i]));
+            boardTemp.setDelYN("Y");
+            //boardService.write(boardTemp);
+        }
         return "redirect:/board/list";
     }
 }

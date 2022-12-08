@@ -4,84 +4,113 @@
     <meta charset="UTF-8">
     <title>게시글 리스트 페이지</title>
 </head>
-<style>
-  .layout {
-    width: 500px;
-    margin: 0 auto;
-    margin-top: 40px;
-  }
-
-</style>
+<script th:src="@{https://code.jquery.com/jquery-2.2.4.min.js}" ></script>
 <script>
-    function checkSelectAll() {
+
+    function checkSelectAll(event) {
+        let result = '';
+        if(event.target.checked)  {
+            result = event.target.value;
+        }else {
+            result = '';
+        }
+
+        console.log(result)
+        // 전체 체크박스
         const checkboxes
-            = document.querySelectorAll('input[name="check"]');
-
+            = document.querySelectorAll('input[name="nolmal"]');
+        // 선택된 체크박스
         const checked
-            = document.querySelectorAll('input[name="check"]:checked');
-
+            = document.querySelectorAll('input[name="nolmal"]:checked');
+        // select all 체크박스
         const selectAll
-            = document.querySelector('input[name="selectall"]');
+            = document.querySelector('input[name="all"]');
 
-        if(checkboxes.length === checked.length) {
+        if (checkboxes.length === checked.length) {
             selectAll.checked = true;
-        } else{
+        } else {
             selectAll.checked = false;
         }
 
-        const chk_arr = document.querySelector("input[name='chk[]']")
-
-        const chk_data = []
-        for(let i=0; i<chk_arr.length; i++ ) {
-            if( chk_arr[i].checked == true ) {
-                chk_data.push(chk_arr[i].value);
-            }
-        }
     }
 
-    function selectAll(selectAll)  {
+    function selectAll(selectAll) {
         const checkboxes
-            = document.getElementsByName('check');
+            = document.getElementsByName('nolmal');
 
         checkboxes.forEach((checkbox) => {
             checkbox.checked = selectAll.checked
         })
     }
 
+    $(document).on("click","#delBtn",function (){
+        // var ids = [];
+        // $("input[name=nolmal]:checked").each(function(i){
+        //
+        //   ids.push($(this).val());
+        //
+        // });
+        //
+        // console.log("ids"+ids);
+
+
+        // var form = $("#delForm");
+        // var input1 = document.createElement('input');
+        // input1.type = 'hidden';
+        // input1.name = 'ids[]';
+        // input1.value = ids;
+        // console.log(input1.value);
+        // $("#ids").val(ids);
+
+
+
+
+        $("#delForm").submit();
+    })
 
 </script>
-
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+</style>
 <body>
-
-  <div class="layout">
-      <table>
-      <thead>
+<div class="layout">
+    <table>
+        <thead>
         <tr>
-            <th><input type="checkbox" name="selectall" onclick="selectAll(this)"></th>
-          <th>글번호</th>
-          <th>제목</th>
+            <th><input type="checkbox" name="all" onclick="selectAll(this)"></th>
+            <th>글번호</th>
+            <th>제목</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr th:each="board : ${list}" >
-          <td><input type="checkbox" name="check" onclick="checkSelectAll()" th:value="${board.id}"></td>
-          <td th:text="${board.id}">1</td>
-          <td>
-              <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
-          </td>
-        </tr>
-      </tbody>
-      </table>
+        </thead>
+        <tbody>
+        <form th:action="@{/board/deleteForm}" method="get" id="delForm">
+            <!--        <input type="hidden" name="ids[]" id="ids">-->
+            <tr th:each="board : ${list}">
+                <td><input type="checkbox" name="nolmal" onclick="checkSelectAll(event)" th:value="${board.id}" id="normal"></td>
+                <td th:text="${board.id}"></td>
+                <td>
+                    <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a></td>
+            </tr>
 
-      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-          <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
-          <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
-      </th:block>
-      <form th:action="@{/board/list}" method="get">
-          <input type="text" name="searchKeyword">
-          <button type="submit">검색</button>
-      </form>
-          <button type="button">삭제</button>
-  </div>
+        </form>
+        </tbody>
+    </table>
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+        <strong th:if="${page == nowPage}" th:text="${page}" style="color: red"></strong>
+    </th:block>
+    <form th:action="@{/board/list}" method="get">
+        <input type="text" name="searchKeyword">
+        <button type="submit">검색</button>
+
+
+    </form>
+    <button type="button" id="delBtn">삭제</button>
+</div>
+
 </body>
 </html>
