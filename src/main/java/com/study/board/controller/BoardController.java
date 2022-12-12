@@ -2,6 +2,7 @@ package com.study.board.controller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
+import org.hibernate.property.access.spi.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -96,14 +97,14 @@ public class BoardController {
     }
 
     @GetMapping("/board/deleteForm")
-    public String deleteForm(Board board, HttpServletRequest request){
+    public String deleteForm(Board board, HttpServletRequest request) throws Exception {
         String[] arrayParam = request.getParameterValues("nolmal");
 
         System.out.println("arrayParam : " + arrayParam[0]);
         for(int i=0; i<= arrayParam.length; i++){
-            Board boardTemp = boardService.boardView(Integer.parseInt(arrayParam[i]));
+            Board boardTemp = boardService.boardView(Integer.parseInt(arrayParam[0]));
             boardTemp.setDelYN("Y");
-            //boardService.write(boardTemp);
+
         }
         return "redirect:/board/list";
     }
