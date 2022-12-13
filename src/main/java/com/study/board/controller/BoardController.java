@@ -75,6 +75,13 @@ public class BoardController {
         return "boardview";
     }
 
+    @GetMapping("/board/ajax")
+    @ResponseBody
+    public String boardAjax(Model model, Integer id) {
+        model.addAttribute("board", boardService.boardAjax(id));
+        return "boardajax";
+    }
+
     @GetMapping("/board/modify/{id}")
     public String boardModify(@PathVariable("id") Integer id, Model model){
 
@@ -97,15 +104,16 @@ public class BoardController {
     }
 
     @GetMapping("/board/deleteForm")
-    public String deleteForm(Board board, HttpServletRequest request) throws Exception {
+    public String deleteForm(Board board, HttpServletRequest request, Integer id) throws Exception {
         String[] arrayParam = request.getParameterValues("nolmal");
 
         System.out.println("arrayParam : " + arrayParam[0]);
-        for(int i=0; i<= arrayParam.length; i++){
-            Board boardTemp = boardService.boardView(Integer.parseInt(arrayParam[0]));
+        Board boardTemp = null;
+        for (int i = 0; i <= arrayParam.length; i++) {
+            boardTemp = boardService.boardView(Integer.parseInt(arrayParam[0]));
             boardTemp.setDelYN("Y");
-
         }
+        boardService.deleteForm(boardTemp, id);
         return "redirect:/board/list";
     }
 }

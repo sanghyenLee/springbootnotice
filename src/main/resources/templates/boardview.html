@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
     *{
         list-style: none;
@@ -78,6 +80,27 @@
 
 
 
+    $(document).ready(function() {
+        $("#btn").click(function () {
+            console.log($("#regTable").val());
+            $.ajax({
+                type: "GET",
+                url: "/board/ajax",
+                // dataType: "json",
+                data: {
+                    id: $("#regTable").val()
+                },
+                success: function (data) {
+                    $("#pt").html("관련정보를 전송했습니다.");
+                },
+                error: function (request, status, error) {
+                    alert(error);
+                },
+            });
+        });
+    });
+
+
 </script>
 <body>
 
@@ -85,6 +108,7 @@
 <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
 <a th:href="@{${board.filepath}}">다운받기</a>
 <a th:href="@{/board/modify/{id}(id = ${board.id})}">수정</a>
+
 
 <input type="checkbox" name="selectall" onclick="selectAll(this)"><b>전체 선택</b>
 <input type="checkbox" name="test" onclick='checkSelectAll()'> 이
@@ -99,9 +123,16 @@
 <div class="key" id="2">2</div>
 <div class="key" id="3">3</div>
 
+<input id="regTable" type="text">
+<input type="button" id="btn" value="DB 삽입">
+<br><br>
+<p id="pt"></p>
+
 <input id="name"/>
 <div id="result"></div>
 <button onclick="printName()"> + </button>
 <button onclick="Drop()"> - </button>
+
+
 </body>
 </html>

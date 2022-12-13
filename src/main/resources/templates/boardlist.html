@@ -5,6 +5,7 @@
     <title>게시글 리스트 페이지</title>
 </head>
 <script th:src="@{https://code.jquery.com/jquery-2.2.4.min.js}" ></script>
+
 <script>
 
     function checkSelectAll(event) {
@@ -68,6 +69,7 @@
         $("#delForm").submit();
     })
 
+
 </script>
 <style>
     .layout {
@@ -110,7 +112,18 @@
 
     </form>
     <button type="button" id="delBtn">삭제</button>
-</div>
 
+    <div id="staticMap" style="width:600px;height:350px;"></div>
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7019cb490870132b577c41799f06bba3"></script>
+<script>
+    var staticMapContainer = document.getElementById('staticMap'), // 이미지 지도를 표시할 div
+        staticMapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
+            level: 3 // 이미지 지도의 확대 레벨
+        };
+
+    var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+</script>
 </body>
 </html>
