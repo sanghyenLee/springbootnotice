@@ -7,10 +7,16 @@ import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -43,7 +49,6 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-
     // 게시글 리스트 처리
     public Page<Board> boardList(Pageable pageable) {
 
@@ -64,4 +69,7 @@ public class BoardService {
     public Object boardAjax(Integer id) {
         return boardRepository.findById(id).get();
     }
+
+
+
 }

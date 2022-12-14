@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 리스트 페이지</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
-<script th:src="@{https://code.jquery.com/jquery-2.2.4.min.js}" ></script>
-
-<script>
+    <script>
 
     function checkSelectAll(event) {
         let result = '';
@@ -112,6 +111,14 @@
 
     </form>
     <button type="button" id="delBtn">삭제</button>
+    </script>
+    <form id="form1" name="form1" method="post" enctype="multipart/form-data" onsubmit="return false">
+        <input type="file" id="fileInput" name="fileInput">
+        <a href="javascript:void(0);" onclick="excelUploadProcess()">엑셀업로드</a>
+        <a href="javascript:void(0);" onclick="excelDownloadProcess()">엑셀다운로드</a>
+    </form>
+    <iframe width=0 height=0 frameborder=0 scrolling=no name="hide_frame" id="hide_frame" style="margin:0"></iframe>
+    <div id="result"></div>
 
     <div id="staticMap" style="width:600px;height:350px;"></div>
 </div>

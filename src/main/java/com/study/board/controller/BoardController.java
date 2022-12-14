@@ -2,7 +2,6 @@ package com.study.board.controller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
-import org.hibernate.property.access.spi.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,14 +15,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import javax.servlet.http.HttpServletRequest;
+
 
 
 @Controller
 public class BoardController {
 
+
+
+    private final BoardService boardService;
     @Autowired
-    private BoardService boardService;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
+
 
     @GetMapping("/board/write")
     public String boardWriteForm() {
@@ -49,7 +56,7 @@ public class BoardController {
 
         if(searchKeyword == null) {
             list = boardService.boardList(pageable);
-        }else {
+        } else {
             list = boardService.boardSearchList(searchKeyword, pageable);
         }
 
@@ -60,6 +67,17 @@ public class BoardController {
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
 
         model.addAttribute("list", list);
+
+        for (int i = 0; i < list.getSize(); i++) {
+            String title = list.getContent().get(i).getTitle();
+            String content = list.getContent().get(i).getContent();
+            String delYN = list.getContent().get(i).getDelYN();
+
+            System.out.println("title: " + title);
+            System.out.println("content: " + content);
+            System.out.println("delYN :" + delYN);
+        }
+
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
