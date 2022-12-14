@@ -112,8 +112,9 @@ public class BoardController {
         for (int i = 0; i <= arrayParam.length; i++) {
             boardTemp = boardService.boardView(Integer.parseInt(arrayParam[0]));
             boardTemp.setDelYN("Y");
+            boardService.deleteForm(boardTemp);
         }
-        boardService.deleteForm(boardTemp, id);
+
         return "redirect:/board/list";
     }
 }

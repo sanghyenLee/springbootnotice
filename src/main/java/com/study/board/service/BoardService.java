@@ -39,8 +39,8 @@ public class BoardService {
         boardRepository.save(board);
 
     }
-    public void deleteForm(Board board, Integer id) throws Exception{
-        boardRepository.findById(id).get();
+    public void deleteForm(Board board) throws Exception{
+        boardRepository.save(board);
     }
 
 
