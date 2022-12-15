@@ -111,11 +111,8 @@
 
     </form>
     <button type="button" id="delBtn">삭제</button>
-    </script>
-    <form id="form1" name="form1" method="post" enctype="multipart/form-data" onsubmit="return false">
-        <input type="file" id="fileInput" name="fileInput">
-        <a href="javascript:void(0);" onclick="excelUploadProcess()">엑셀업로드</a>
-        <a href="javascript:void(0);" onclick="excelDownloadProcess()">엑셀다운로드</a>
+    <form th:action="@{/excel/download}"  method="get">
+        <button type="submit">Excel</button>
     </form>
     <iframe width=0 height=0 frameborder=0 scrolling=no name="hide_frame" id="hide_frame" style="margin:0"></iframe>
     <div id="result"></div>

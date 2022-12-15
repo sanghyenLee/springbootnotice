@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpServletRequest;
-
+import java.io.IOException;
 
 
 @Controller
@@ -68,21 +68,17 @@ public class BoardController {
 
         model.addAttribute("list", list);
 
-        for (int i = 0; i < list.getSize(); i++) {
-            String title = list.getContent().get(i).getTitle();
-            String content = list.getContent().get(i).getContent();
-            String delYN = list.getContent().get(i).getDelYN();
-
-            System.out.println("title: " + title);
-            System.out.println("content: " + content);
-            System.out.println("delYN :" + delYN);
-        }
 
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
         return "boardlist";
+    }
+
+    @GetMapping("/excel/download")
+    public void  excelDownload(HttpServletRequest response) throws IOException {
+
     }
 
     @GetMapping("/board/view") // localhost:8090/board/view?id=1
