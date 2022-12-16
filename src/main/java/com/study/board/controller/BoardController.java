@@ -2,6 +2,11 @@ package com.study.board.controller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
+import javafx.scene.control.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -74,11 +83,6 @@ public class BoardController {
         model.addAttribute("endPage", endPage);
 
         return "boardlist";
-    }
-
-    @GetMapping("/excel/download")
-    public void  excelDownload(HttpServletRequest response) throws IOException {
-
     }
 
     @GetMapping("/board/view") // localhost:8090/board/view?id=1

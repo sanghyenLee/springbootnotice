@@ -43,33 +43,20 @@
         })
     }
 
-    $(document).on("click","#delBtn",function (){
-        // var ids = [];
-        // $("input[name=nolmal]:checked").each(function(i){
-        //
-        //   ids.push($(this).val());
-        //
-        // });
-        //
-        // console.log("ids"+ids);
+    const btn = document.querySelector('#btn');
 
+    function random(number) {
+        return Math.floor(Math.random() * (number+1));
+    }
 
-        // var form = $("#delForm");
-        // var input1 = document.createElement('input');
-        // input1.type = 'hidden';
-        // input1.name = 'ids[]';
-        // input1.value = ids;
-        // console.log(input1.value);
-        // $("#ids").val(ids);
+    btn.onclick = function() {
+        const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+        document.body.style.backgroundColor = rndCol;
+    }
 
 
 
-
-        $("#delForm").submit();
-    })
-
-
-</script>
+    </script>
 <style>
     .layout {
         width: 500px;
@@ -96,7 +83,6 @@
                 <td>
                     <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a></td>
             </tr>
-
         </form>
         </tbody>
     </table>
@@ -107,17 +93,13 @@
     <form th:action="@{/board/list}" method="get">
         <input type="text" name="searchKeyword">
         <button type="submit">검색</button>
-
-
     </form>
     <button type="button" id="delBtn">삭제</button>
-    <form th:action="@{/excel/download}"  method="get">
-        <button type="submit">Excel</button>
-    </form>
     <iframe width=0 height=0 frameborder=0 scrolling=no name="hide_frame" id="hide_frame" style="margin:0"></iframe>
     <div id="result"></div>
 
     <div id="staticMap" style="width:600px;height:350px;"></div>
+    <button id="btn">Change color</button>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7019cb490870132b577c41799f06bba3"></script>
 <script>
